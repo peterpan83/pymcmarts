@@ -1,0 +1,161 @@
+#C********************************************************************C
+#C
+#C	SCIATRAN - Version 3.1 - Last modification: 19 Aug 2010
+#C
+#C	Copyright (C) Institute of Remote Sensing,
+#C		      University of Bremen, Germany
+#C
+#**********************************************************************
+#*                                                                    *
+#*          Aerosol Flags and parameters for determining              *
+#*                  SCIATRAN aerosol scenario                         *
+#*                                                                    *
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#^^^^^^^^^^^^^^^^^^^^^^^^ Aerosol layering ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+##   Number of aerosol layers their top altitudes [km]
+##   and relative humidity [%]:
+##      First  line:      the number of aerosol layers
+##      Second line:      top altitudes [km] of all aerosol layers
+##      Third  line:      relative humidities [%] of all aerosol layers
+##
+##   NOTE: * The layering must start at the earth surface, i.e.,
+##         * from the bottom of the atmosphere to the top.
+##         * The following humidity values are allowed:
+##           0, 50, 70, 80, 90, 95, 98, and 99 % rel. hum.
+Number of aerosol layers
+4
+
+
+##   Aerosol type definition:
+##   ========================
+##   For each layer (starting at the earth surface) the aerosol
+##   type definition consists of several lines:
+##
+##   1. line : name of the aerosol type (string, 30 characters max.)
+##   2. line : number n of aerosol components (max: n=4)
+##   3. line : id. number and rel. particle number density of 1. component
+##   4. line :                        "                    of 2. component
+## n+3. line :                        "                    of n. component
+##
+##   NOTE: For each layer the sum of the relative particle number
+##         densities  must equal 1.
+##
+##   NOTE: The different layers must be separated by ONE blank line.
+##
+##   ------------------------------------------------------------
+##   | Aerosol component                           | id. number |
+##   ------------------------------------------------------------
+##   | -> WATER SOLUBLE                            |     1      |
+##   |    sulfates (also DMS), nitrates and        |		|
+##   |    other water soluble substances from GPC  |		|
+##   | -> SEA SALT (ACC. MODE)                     |     2	|
+##   | -> SEA SALT (COARSE MODE)                   |     3	|
+##   | -> SULFATE                                  |     4 	|
+##   |	  = 75% H2SO4 droplets (at 0% rel.hum.)    |		|
+##   |	  aged volcanic aerosol                    |		|
+##   |	  antarctic sulfate aerosol                |		|
+##   | -> INSOLUBLE (DUST)                         |     5	|
+##   |    midlatitude conditions                   |            |
+##   | -> SOOT                                     |     6	|
+##   | -> MINERAL (NUC. MODE)                      |     7	|
+##   | -> MINERAL (ACC. MODE)                      |     8	|
+##   | -> MINERAL (COARSE MODE)                    |     9	|
+##   | -> MINERAL (transported)                    |    10      |
+##   |    arid and semiarid regions                |            |
+##   | -> VOLCANIC ASH (FRESH VOLC.)               |    11	|
+##   | -> METEORIC DUST                            |    12  	|
+##   |----------------------------------------------------------|
+##
+Aerosol type definition
+'OPAC maritime clean'
+3
+1, .987
+2, .01
+3, .003
+
+'OPAC continental clean'
+1
+1, 1.0
+
+'sulfate'
+1
+4, 1.
+
+'meteoric'
+1
+12, 1.
+
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#^^^^^^^^^^^^^^^^^^^^^^^^ Aerosol profile ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+##   Profile type 'exti' or 'part' :
+##   --> 'exti' - extinction coefficient  [1/km]
+##   --> 'part' - particle number density [particles/cm^3]
+Profile type
+exti
+
+##   In case of profile type 'exti' (extinction coefficient):
+##
+##   At which of the following wavelengths is the profile given:
+##              225,  250,  275,  300,  325,  350,  400,
+##              450,  500,  550,  600,  650,  700,  750,  800,
+##              850,  900,  950, 1000, 1050,
+##             1100, 1150, 1200, 1250, 1300,
+##             1350, 1400, 1450, 1500, 1550,
+##             1600, 1650, 1700, 1750, 1800,
+##             1850, 1900, 1950, 2000, 2050,
+##             2100, 2150, 2200, 2250, 2300,
+##             2350, 2400, 2450, 2475, 2500 nm
+Reference wavelength
+550.
+
+##   Profile:
+##
+##   1. line : number m of heigth levels
+##   2. line : height [km] and profile value of 1. height level
+##   3. line :                "              of 2. height level
+## n+1. line :                "              of n. height level
+##
+##   NOTE: The profile value is either the extinction coeff. [1/km]
+##         (profile type 1) or the particle number density [1/cm^3]
+##         (profile type 2).
+##
+Profile
+33
+  0., 1.58e-1    # Lowtran: vis=23km
+  1., 9.91e-2
+  2., 6.21e-2
+  3., 1.46e-2    # Lowtran: spring/summer, vis=50km
+  4., 1.02e-2
+  5., 9.31e-3
+  6., 7.71e-3
+  7., 6.23e-3
+  8., 3.37e-3
+  9., 1.82e-3
+ 10., 1.14e-3
+ 11., 7.99e-4    # Lowtran: spring/summer, background
+ 12., 6.41e-4
+ 13., 5.17e-4
+ 14., 4.42e-4
+ 15., 3.95e-4
+ 16., 3.82e-4
+ 17., 4.25e-4
+ 18., 5.20e-4
+ 19., 5.81e-4
+ 20., 5.89e-4
+ 21., 5.02e-4
+ 22., 4.20e-4
+ 23., 3.00e-4
+ 24., 1.98e-4
+ 25., 1.31e-4
+ 30., 3.32e-5
+ 35., 1.64e-5     # Lowtran: normal upper atmosphere
+ 40., 7.99e-6
+ 45., 4.01e-6
+ 50., 2.10e-6
+ 70., 1.60e-7
+100., 9.31e-10
+
+#*************************************************************************
